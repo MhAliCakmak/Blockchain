@@ -1,6 +1,7 @@
 import hashlib
 import time
 
+
 class dilKontrol:
     def __init__(self, kelime):
         self.kelime = kelime
@@ -17,14 +18,15 @@ class dilKontrol:
         kalinUnlu = ["a", "ı", "o", "u"]
         inceUnlu = ["e", "i", "ö", "ü"]
         for kelime in cumleAyirma:
-            if (sum(kelime.count(kalin) for kalin in kalinUnlu)) != 0 and (sum(kelime.count(ince) for ince in inceUnlu)) != 0:
+            if (sum(kelime.count(kalin) for kalin in kalinUnlu)) != 0 and (
+            sum(kelime.count(ince) for ince in inceUnlu)) != 0:
                 return f"{kelime} büyük unlu uyumuna uymaz"
             else:
                 return f"{kelime} büyük unlu uyumuna uyar"
 
     def kucukUnluUyumu(self):
-        unluler = ["a", "ı", "o", "u","i","ö","ü","e"]
-        cumleAyirma=self.kelime.split()
+        unluler = ["a", "ı", "o", "u", "i", "ö", "ü", "e"]
+        cumleAyirma = self.kelime.split()
         myList = []
         for harf in cumleAyirma:
             if harf in unluler:
@@ -57,11 +59,12 @@ class dilKontrol:
     def sesliHarfSayisi(self):
         sesli_harf = 'AEIİOÖUÜaeıioöuü'
         cumleAyirma = self.kelime.split()
-        count=0
+        count = 0
         for kelime in cumleAyirma:
             if kelime in sesli_harf:
-                count+=1
+                count += 1
         print(count)
+
     def cumlelereAyirma(self):
         cumleyeAyirma = self.kelime.split()
         for kelime in range(len(cumleyeAyirma)):
@@ -70,7 +73,6 @@ class dilKontrol:
 
 class sifrelemeYontemleri:
 
-
     def __init__(self, data, previousHash=""):
 
         self.data = data
@@ -78,13 +80,12 @@ class sifrelemeYontemleri:
         self.timeStamp = time.ctime()
         self.kuvvet = 0
 
-
-
     def md5(self):
 
         while True:
             self.kuvvet += 1
-            transaction = hashlib.md5((str(self.timeStamp) + str(self.data) + str(self.previousHash) + str(self.kuvvet)).encode()).hexdigest()
+            transaction = hashlib.md5(
+                (str(self.timeStamp) + str(self.data) + str(self.previousHash) + str(self.kuvvet)).encode()).hexdigest()
             if transaction[0:2] == "00":
                 break
         return transaction
@@ -92,7 +93,8 @@ class sifrelemeYontemleri:
     def sha256(self):
         while True:
             self.kuvvet += 1
-            transaction = hashlib.sha256((str(self.timeStamp) + str(self.data) + str(self.previousHash) + str(self.kuvvet)).encode()).hexdigest()
+            transaction = hashlib.sha256(
+                (str(self.timeStamp) + str(self.data) + str(self.previousHash) + str(self.kuvvet)).encode()).hexdigest()
             if transaction[0:2] == "00":
                 break
         return transaction
@@ -100,7 +102,8 @@ class sifrelemeYontemleri:
     def sha1(self):
         while True:
             self.kuvvet += 1
-            transaction = hashlib.sha1((str(self.timeStamp) + str(self.data) + str(self.previousHash) + str(self.kuvvet)).encode()).hexdigest()
+            transaction = hashlib.sha1(
+                (str(self.timeStamp) + str(self.data) + str(self.previousHash) + str(self.kuvvet)).encode()).hexdigest()
             if transaction[0:2] == "00":
                 break
         return transaction
@@ -108,7 +111,8 @@ class sifrelemeYontemleri:
     def sha224(self):
         while True:
             self.kuvvet += 1
-            result = hashlib.sha224((str(self.timeStamp) + str(self.data) + str(self.previousHash) + str(self.kuvvet)).encode()).hexdigest()
+            result = hashlib.sha224(
+                (str(self.timeStamp) + str(self.data) + str(self.previousHash) + str(self.kuvvet)).encode()).hexdigest()
             if result[0:2] == "00":
                 break
         return result
@@ -116,7 +120,8 @@ class sifrelemeYontemleri:
     def sha512(self):
         while True:
             self.kuvvet += 1
-            result = hashlib.sha512((str(self.timeStamp) + str(self.data) + str(self.previousHash) + str(self.kuvvet)).encode()).hexdigest()
+            result = hashlib.sha512(
+                (str(self.timeStamp) + str(self.data) + str(self.previousHash) + str(self.kuvvet)).encode()).hexdigest()
             if result[0:2] == "00":
                 break
         return result
