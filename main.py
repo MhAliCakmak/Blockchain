@@ -1,29 +1,41 @@
+
+
 import myLib
+
 
 class blockchain:
     def __init__(self):
         self.chain = [self.genesisCreate]
 
     def genesisCreate(self):
-        genesis = myLib.sifrelemeYontemleri("sign of Eflatun",periviousHash="00000000000000000000000000000000",timeStamp=684343,)
+        genesis = myLib.sifrelemeYontemleri("sign of Eflatun", periviousHash="00000000000000000000000000000000",timeStamp=684343 )
         return genesis.sha256()
 
-    def addBlock(self, data):
-        previous_hash = str(hash(self.chain[-1]))
-        node = myLib.sifrelemeYontemleri(data, previous_hash)
+    def addBlock(self, data,secim):
+        previous_hash = self.chain[-1]
+        if secim==1:
+            node = myLib.sifrelemeYontemleri(data, previous_hash).sha256()
+        elif secim==2:
+            node = myLib.sifrelemeYontemleri(data, previous_hash).mdo()
+        elif secim==3:
+            node = myLib.sifrelemeYontemleri(data, previous_hash).sha1()
+        elif secim==4:
+            node = myLib.sifrelemeYontemleri(data, previous_hash).sha224()
+        elif secim==5:
+            node = myLib.sifrelemeYontemleri(data, previous_hash).sha512()
         self.chain.append(node)
+        return node
 
     def txtEkle(self):
         with open("sifre.txt", "a+") as dosya:
+            dosya.writelines(f"{self.chain}\n")
 
-            for i in range(1,len(self.chain)):
-                magic = self.chain[i]
-                dosya.write(f"{str(hash(magic))}\n")
 
 def turkçeYazımKurallari():
     girdi = input("Cumlenizi giriniz: \t")
     data1 = myLib.dilKontrol(girdi)
-    result1 = int(input(30*"-"+"\n1)Kelimelere Ayırma\n 2)Cumlelere Ayirma \n 3)Kucuk unlu uyumu \n 4)Buyuk unlu uyumu\n 5)Sesli Harf sayısı\n"))
+    result1 = int(input(
+        30 * "-" + "\n1)Kelimelere Ayırma\n 2)Cumlelere Ayirma \n 3)Kucuk unlu uyumu \n 4)Buyuk unlu uyumu\n 5)Sesli Harf sayısı:\t"))
     if result1 == 1:
         data1.kelimeyiAyirma()
     elif result1 == 2:
@@ -37,53 +49,35 @@ def turkçeYazımKurallari():
     else:
         print("Eksik veya Hatalı tuşladınız.")
 
+
 def sifreleme():
     result2 = input("data giriniz :\t")
-    hash1 = myLib.sifrelemeYontemleri(result2)
-    ozelSifreleme = int(input(30*"-"+"\nÖzel bir sifrelme turu ister misiniz?\n1)YES\n2)no:\t"))
+    ozelSifreleme = int(input(30 * "-" + "\nÖzel bir sifrelme turu ister misiniz?\n1)YES\n2)no:\t"))
 
     block1 = blockchain()
-    yontem = hash1.sha256()
+
     if ozelSifreleme == 1:
-        girdiYontem = int(input(30*"-"+"\n1)sha256\n2)md5\n3)sha1\n4)sha512\n5)sha224:\t"))
-        if girdiYontem == 1:
-            yontem = hash1.sha256()
-            print(yontem)
-        elif girdiYontem == 2:
-            yontem = hash1.md5()
-            print(yontem)
-        elif girdiYontem == 3:
-            yontem = hash1.sha1()
-            print(yontem)
-        elif girdiYontem == 4:
-            yontem = hash1.sha512()
-            print(yontem)
-        elif girdiYontem == 5:
-            yontem = hash1.sha224()
-            print(yontem)
-        elif girdiYontem == 6:
-            pass
-        elif girdiYontem == 7:
-            pass
+        girdiYontem = int(input(30 * "-" + "\n1)sha256\n2)md5\n3)sha1\n4)sha512\n5)sha224:\t"))
+        saveBlock = int(input(30 * "-" + "\nBlock u kaydetmek istiyor musun ? \n1)YES\n2)no:\t"))
 
     else:
-        print(hash1.sha256())
-    saveBlock = int(input("block u kaydetmek istiyor musun ? \t1)YES\n2)no:\t"))
+        print("Eksik veya Hatalı tuşladınız")
     if saveBlock == 1:
-        block1.addBlock(result2)
+        block1.addBlock(result2,girdiYontem)
+        print(block1.addBlock(result2, girdiYontem))
         block1.txtEkle()
+        print("Block başarıyla kaydedildi")
     else:
+        print(block1.addBlock(result2, girdiYontem))
         print("block kaydedilmedi")
 
 
 while True:
-    result = int(input(30*"-"+"\n1)Turkce yazım kurallari kontrolu\n2)Sifreleme|\t"))
+    result = int(input(30 * "-" + "\n1)Turkce yazım kurallari kontrolu\n2)Sifreleme|\t"))
 
     if result == 1:
-
         turkçeYazımKurallari()
-
     elif result == 2:
         sifreleme()
     else:
-        print("Eksik veya Hatalı tuşladınız.\n"+"-"*30)
+        print("Eksik veya Hatalı tuşladınız.\n" + "-" * 30)

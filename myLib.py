@@ -17,8 +17,8 @@ class dilKontrol:
     def buyukUnluUyumu(self):
         cumleAyirma = self.kelime.split()
 
-        kalinUnlu = ["a", "ı", "o", "u"]
-        inceUnlu = ["e", "i", "ö", "ü"]
+        kalinUnlu = ["a", "ı", "o", "u","A","I","O","U"]
+        inceUnlu = ["e", "i", "ö", "ü","E","İ","Ö","Ü"]
         for kelime in cumleAyirma:
             if (sum(kelime.count(kalin) for kalin in kalinUnlu)) != 0 and ( sum(kelime.count(ince) for ince in inceUnlu)) != 0:
                 return f"{kelime} büyük unlu uyumuna uymaz"
@@ -26,7 +26,7 @@ class dilKontrol:
                 return f"{kelime} büyük unlu uyumuna uyar"
 
     def kucukUnluUyumu(self):
-        unluler = list("aıoueiöü")
+        unluler = list("aıoueiöüAIOUEİÖÜ")
         cumleAyrimi = self.kelime.split()
         myList = []  # Boş bir liste oluşturulur.
         for kelime in cumleAyrimi:
@@ -34,25 +34,21 @@ class dilKontrol:
                 if harf in unluler:
                     myList.append(harf)
 
-        duz_unluler = list(
-            "aeıi")
-        duzden_sonra = list("aeıi")
-        yuvarlak_unluler = list("ouöü")
-        yuvarlaktan_sonra = list("aeuü")
+        duz_unluler = list("aeıiAEIİ")
+        duzden_sonra = list("aeıiAEIİ")
+        yuvarlak_unluler = list("ouöüOUÖÜ")
+        yuvarlaktan_sonra = list("aeuüAEUÜ")
         kurala_uyuyor = None
 
         for indeks in range(len(myList)):
             try:
-                if myList[indeks] in duz_unluler and myList[
-                    indeks + 1] in duzden_sonra:
+                if myList[indeks] in duz_unluler and myList[indeks + 1] in duzden_sonra:
                     kurala_uyuyor = True
-                elif myList[indeks] in yuvarlak_unluler and myList[
-                    indeks + 1] in yuvarlaktan_sonra:
+                elif myList[indeks] in yuvarlak_unluler and myList[indeks + 1] in yuvarlaktan_sonra:
                     kurala_uyuyor = True
                 else:
                     kurala_uyuyor = False
                     break
-
             except IndexError:
                 continue
 
