@@ -1,5 +1,11 @@
 import hashlib
 import datetime
+class Error(Exception):
+    """Hataların Açıklamaları"""
+    pass
+class BaskaDeger(Error):
+    """İstenilmeyen Bir Değer girildi"""
+    pass
 class dilKontrol:
     def __init__(self, kelime):
         self.kelime = kelime
@@ -178,12 +184,12 @@ class help:
                 else:
                     raise BaskaDeger
                     break
-            except Exception:
-                print("Muhtemelen Yanlış bir değer girdiniz. Tekrar yazınız.")
+            except BaskaDeger:
+                print("Yanlış bir değer girdiniz. Tekrar yazınız.")
 
     def Sifreleme(self):
         print("Şifreleme Yöntemleri")
-        print("Modüllerin içeriği:\n 1. Hash şifreleme yöntemleri \n 2. Simetrik veya asimetrik şifreleme yöntemleri")
+        print("Modüllerin içeriği:\n 1. Hash şifreleme yöntemleri \n 2. Sezar şifreleme")
         ayrinti=int(input("Ayrıntısını öğrenmek istediğiniz modülü giriniz: "))
         if ayrinti == 1:
             print("SHA256 şifreleme:32 bitlik dahili blok boyutu")
@@ -192,4 +198,5 @@ class help:
             print("SHA512 şifreleme:64 bit dahili blok boyutu")
             print("SHA224 şifreleme:32 bitlik dahili blok boyutu (kesilmiş versiyon)")
         elif ayrinti == 2:
-            print("Simerik veya asimetri şifreleme")
+            print("Girilen metinin her harfini ayırıp her harfin indexinin karesini alıp 111 arttırıyor ve çıkan sonucu alfabe dizisinin uzunluğuna modunu alıyor.\nÇıkan sonucun alfabe dizisindeki index'in karakteri oluyor. Çıkan sonuç tekrar birleştirilerek sonucunda şifre oluşuyor")
+            #Harfin karesini alıp 111 arttırıp alfabenin uzunluğuna modunu alıyor

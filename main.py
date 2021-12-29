@@ -26,7 +26,7 @@ class blockchain:
 
         nonce = randint(1000, 45678)
 
-        return f"\t   |/\/\/\/\/\|\nnonce:\t{nonce}\ndata:\t{data}\nhash:\t{node}\nprevious hash:\t{self.chain[-2]}\n\t   |\/\/\/\/\/|"
+        return f"\t   |\/\/\/\/\/|\t|/\/\/\/\/\|\nnonce:\t{nonce}\ndata:\t{data}\nhash:\t{node}\nprevious hash:\t{self.chain[-2]}\n\t   |\/\/\/\/\/|\t|/\/\/\/\/\|\n"
 def turkçeYazımKurallari():
     girdi = input("Cumlenizi giriniz: \t")
     data1 = myLib.dilKontrol(girdi)
@@ -55,16 +55,19 @@ def sifreleme(girdiYontem):
 
         saveBlock = int(input(30 * "-" + "\nBlock u kaydetmek istiyor musun ? \n1)YES\n2)no:\t"))
         if saveBlock == 1:
-            print("Block Oluştruluyor ....")
-            time.sleep(uniform(2, 5))
-            with open("sifre.txt", "a+") as dosya:
+            try:
+                print("Block Oluştruluyor ....")
+                time.sleep(uniform(2, 5))
 
-                değer = block1.addBlock(result2, girdiYontem)
+                with open("sifre.txt", "a+") as dosya:
 
-                print(değer)
-                dosya.write(değer)
-                print("Block başarıyla kaydedildi")
+                    değer = block1.addBlock(result2, girdiYontem)
 
+                    print(değer)
+                    dosya.write(değer)
+                    print("Block başarıyla kaydedildi")
+            except FileNotFoundError:
+                print("Dosya bulunamadı")
         else:
             print(block1.addBlock(result2, girdiYontem))
             print("block kaydedilmedi")
@@ -72,34 +75,27 @@ def sifreleme(girdiYontem):
         print("Eksik veya hatali tusladınız.\n")
 block1 = blockchain()
 while True:
-
-    result = int(input(30 * "-" + "\n1)Turkce yazım kurallari kontrolu|\n2)Sifreleme|\n3)Help|\t"))
-
-    if result == 1:
-        turkçeYazımKurallari()
-    elif result == 2:
-        print("Bir şifreleme yontemi seciniz\n")
-        girdiYontem = int(input(30 * "-" + "\n1)sha256\n2)md5\n3)sha1\n4)sha512\n5)sha224\n6)Simetrik sifreleme:\t"))
-
-        sifreleme(girdiYontem)
-    elif result==3:
-        data2=myLib.help()
         try:
-
-            helpSecim = int(input(" 1. Dil \n 2. Şifreleme yöntemleri \n 0. Çıkış"))
-
-            if helpSecim == 1:
-                data2.DilKontrol()
-            elif helpSecim == 2:
-
-                data2.Sifreleme()
-            elif klavye == 0:
+            result = int(input(30 * "-" + "\n1)Turkce yazım kurallari kontrolu|\n2)Sifreleme|\n3)Help|\n0)Çıkış|\t"))
+            if result == 1:
+                turkçeYazımKurallari()
+            elif result == 2:
+                girdiYontem = int(input(30 * "-" + "\n1)sha256\n2)md5\n3)sha1\n4)sha512\n5)sha224\n6)Simetrik sifreleme:\t"))
+                sifreleme(girdiYontem)
+            elif result==3:
+                data2=myLib.help()
+                helpSecim = int(input(" 1. Dil \n 2. Şifreleme yöntemleri \n 0. Çıkış"))
+                if helpSecim == 1:
+                    data2.DilKontrol()
+                elif helpSecim == 2:
+                    data2.Sifreleme()
+                elif helpSecim == 0:
+                    break
+                else:
+                    raise Exception
+                    break
+            elif result==0:
                 break
-            else:
-                raise Exception
-                break
-        except Exception:
-            print("Muhtemelen Yanlış bir değer girdiniz. Tekrar yazınız.")
-    else:
-        print("Eksik veya Hatalı tuşladınız.\n" + "-" * 30)
+        except ValueError:
+            print("Karakteri yanlış")
 
