@@ -1,9 +1,6 @@
 from random import uniform,randint
 import myLib
 import time
-
-
-
 class blockchain:
     def __init__(self):
         self.chain = []
@@ -29,9 +26,7 @@ class blockchain:
 
         nonce = randint(1000, 45678)
 
-        return f"\nnonce:\t{nonce}\ndata:\t{data}\nhash:\t{node}\nprevious hash:\t{self.chain[-2]}\n\t   |\/\/\/\/|\n"
-
-
+        return f"\t   |/\/\/\/\/\|\nnonce:\t{nonce}\ndata:\t{data}\nhash:\t{node}\nprevious hash:\t{self.chain[-2]}\n\t   |\/\/\/\/\/|"
 def turkçeYazımKurallari():
     girdi = input("Cumlenizi giriniz: \t")
     data1 = myLib.dilKontrol(girdi)
@@ -56,7 +51,7 @@ def sifreleme(girdiYontem):
 
     if girdiYontem<7:
         result2 = input("data giriniz :\t")
-        print("\nBir şifreleme yontemi seciniz")
+
 
         saveBlock = int(input(30 * "-" + "\nBlock u kaydetmek istiyor musun ? \n1)YES\n2)no:\t"))
         if saveBlock == 1:
@@ -83,7 +78,9 @@ while True:
     if result == 1:
         turkçeYazımKurallari()
     elif result == 2:
+        print("Bir şifreleme yontemi seciniz\n")
         girdiYontem = int(input(30 * "-" + "\n1)sha256\n2)md5\n3)sha1\n4)sha512\n5)sha224\n6)Simetrik sifreleme:\t"))
+
         sifreleme(girdiYontem)
     elif result==3:
         data2=myLib.help()

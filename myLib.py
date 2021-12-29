@@ -26,7 +26,7 @@ class dilKontrol:
     def kucukUnluUyumu(self):
         unluler = list("aıoueiöüAIOUEİÖÜ")
         cumleAyrimi = self.kelime.split()
-        myList = []  # Boş bir liste oluşturulur.
+        myList = []
         for kelime in cumleAyrimi:
             for harf in kelime:
                 if harf in unluler:
