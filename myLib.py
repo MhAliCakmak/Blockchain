@@ -1,7 +1,5 @@
 import hashlib
-import time
-
-
+import datetime
 class dilKontrol:
     def __init__(self, kelime):
         self.kelime = kelime
@@ -78,7 +76,7 @@ class dilKontrol:
 
 class sifrelemeYontemleri:
 
-    def __init__(self, data, previousHash="", timeStamp=time.ctime()):
+    def __init__(self, data, previousHash="", timeStamp=datetime.datetime.now().day):
 
         self.data = data
         self.previousHash = previousHash
@@ -131,12 +129,67 @@ class sifrelemeYontemleri:
                 break
         return result
 
-    def simetrikSifreleme(self):
-        pass
-
-    def asimetrikSifreleme(self):
-        pass
-
+    def sezarSifreleme(self):
+        alphabet = [
+            'a', 'b', 'c', 'd', 'e', 'f', 'g', 'h', 'i', 'j', 'k', 'l', 'm',
+            'n', 'o', 'p', 'q', 'r', 's', 't', 'u', 'v', 'w', 'x', 'y', 'z'
+        ]
+        myNewMessage= ""
+        cumleAyirma=self.data.split()
+        for kelime in cumleAyirma:
+            for j in range(len(kelime)):
+                if kelime[j] not in alphabet:
+                    myNewMessage+=kelime[j]
+                else:
+                    myNewMessage+=alphabet[ (alphabet.index(kelime[j]) **2+111) % len(alphabet)]
+        return myNewMessage
 
 class help:
-    pass
+
+    def __init__(self):
+        pass
+    def DilKontrol(self):
+        while True:
+            try:
+                print("Modüllerin içeriği:\n 1: Kelimeleri ayırma.")
+                print(" 2: Cümlelere ayırma.")
+                print(" 3: String ifade içerisinde kaç adet sesli harf olduğunu bulma.")
+                print(" 4: Küçük ünlü uyumuna uyan kelimeleri bulma.")
+                print(" 5. Büyük ünlü uyumuna uyan kelimeleri bulma.")
+                print(" 0. Geri git")
+                ayrinti=int(input("Ayrıntısını öğrenmek istediğiniz modülü giriniz: "))
+                if ayrinti == 1:
+                    print("Girilen cümleyi kelimelere ayırır. \n Örneğin: \"Hava bugün çok güzel.\" Kelimesini \"Hava\"-\"bugün\"-\"çok\"-\"güzel\"'e çevirir")
+                    input("Devam etmek için entere tıklayın")
+                elif ayrinti == 2:
+                    print("Girilen metini cümlelere ayırır. ")
+                    input("Devam etmek için entere tıklayın")
+                elif ayrinti == 3:
+                    print("Girilen metinin içerisinde kaç tane sesli harf olduğunu sayıp ekrana yazdırır.")
+                    input("Devam etmek için entere tıklayın")
+                elif ayrinti == 4:
+                    print("Girilen metinin küçük ünlü uyumuna uyan kelimeleri sayar ve ekrana yazdırır.")
+                    input("Devam etmek için entere tıklayın")
+                elif ayrinti == 5:
+                    print("Girilen metinin büyük ünlü uyumuna uyan kelimeleri sayar ve ekrana yazdırır.")
+                    input("Devam etmek için entere tıklayın")
+                elif ayrinti == 0:
+                    break
+                else:
+                    raise BaskaDeger
+                    break
+            except Exception:
+                print("Muhtemelen Yanlış bir değer girdiniz. Tekrar yazınız.")
+
+    def Sifreleme(self):
+        print("Şifreleme Yöntemleri")
+        print("Modüllerin içeriği:\n 1. Hash şifreleme yöntemleri \n 2. Simetrik veya asimetrik şifreleme yöntemleri")
+        ayrinti=int(input("Ayrıntısını öğrenmek istediğiniz modülü giriniz: "))
+        if ayrinti == 1:
+            print("SHA256 şifreleme:32 bitlik dahili blok boyutu")
+            print("MD5 şifreleme:128 bitlik bir karma değer üreten bir karma işlevidir.")
+            print("SHA1 şifreleme:MD5 karma değerine benzeyen 160 bitlik bir karma işlevdir.")
+            print("SHA512 şifreleme:64 bit dahili blok boyutu")
+            print("SHA224 şifreleme:32 bitlik dahili blok boyutu (kesilmiş versiyon)")
+        elif ayrinti == 2:
+            print("Simerik veya asimetri şifreleme")

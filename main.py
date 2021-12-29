@@ -1,34 +1,35 @@
-
-
+from random import uniform,randint
 import myLib
+import time
+
 
 
 class blockchain:
     def __init__(self):
-        self.chain = [self.genesisCreate]
+        self.chain = []
+        self.chain.append(myLib.sifrelemeYontemleri("sign of Eflatun").md5())
 
-    def genesisCreate(self):
-        genesis = myLib.sifrelemeYontemleri("sign of Eflatun", periviousHash="00000000000000000000000000000000",timeStamp=684343 )
-        return genesis.sha256()
-
-    def addBlock(self, data,secim):
-        previous_hash = self.chain[-1]
-        if secim==1:
+    def addBlock(self, data, secim):
+        previous_hash =self.chain[-1]
+        if secim == 1:
             node = myLib.sifrelemeYontemleri(data, previous_hash).sha256()
-        elif secim==2:
-            node = myLib.sifrelemeYontemleri(data, previous_hash).mdo()
-        elif secim==3:
+        elif secim == 2:
+            node = myLib.sifrelemeYontemleri(data, previous_hash).md5()
+        elif secim == 3:
             node = myLib.sifrelemeYontemleri(data, previous_hash).sha1()
-        elif secim==4:
+        elif secim == 4:
             node = myLib.sifrelemeYontemleri(data, previous_hash).sha224()
-        elif secim==5:
+        elif secim == 5:
             node = myLib.sifrelemeYontemleri(data, previous_hash).sha512()
+        elif secim == 6:
+            node = myLib.sifrelemeYontemleri(data, previous_hash).sezarSifreleme()
+        else:
+            return "Eksik veya hatalı tuşladınız"
         self.chain.append(node)
-        return node
 
-    def txtEkle(self):
-        with open("sifre.txt", "a+") as dosya:
-            dosya.writelines(f"{self.chain}\n")
+        nonce = randint(1000, 45678)
+
+        return f"\nnonce:\t{nonce}\ndata:\t{data}\nhash:\t{node}\nprevious hash:\t{self.chain[-2]}\n\t   |\/\/\/\/|\n"
 
 
 def turkçeYazımKurallari():
@@ -50,34 +51,58 @@ def turkçeYazımKurallari():
         print("Eksik veya Hatalı tuşladınız.")
 
 
-def sifreleme():
-    result2 = input("data giriniz :\t")
-    ozelSifreleme = int(input(30 * "-" + "\nÖzel bir sifrelme turu ister misiniz?\n1)YES\n2)no:\t"))
+def sifreleme(girdiYontem):
 
-    block1 = blockchain()
 
-    if ozelSifreleme == 1:
-        girdiYontem = int(input(30 * "-" + "\n1)sha256\n2)md5\n3)sha1\n4)sha512\n5)sha224:\t"))
+    if girdiYontem<7:
+        result2 = input("data giriniz :\t")
+        print("\nBir şifreleme yontemi seciniz")
+
         saveBlock = int(input(30 * "-" + "\nBlock u kaydetmek istiyor musun ? \n1)YES\n2)no:\t"))
+        if saveBlock == 1:
+            print("Block Oluştruluyor ....")
+            time.sleep(uniform(2, 5))
+            with open("sifre.txt", "a+") as dosya:
 
+                değer = block1.addBlock(result2, girdiYontem)
+
+                print(değer)
+                dosya.write(değer)
+                print("Block başarıyla kaydedildi")
+
+        else:
+            print(block1.addBlock(result2, girdiYontem))
+            print("block kaydedilmedi")
     else:
-        print("Eksik veya Hatalı tuşladınız")
-    if saveBlock == 1:
-        block1.addBlock(result2,girdiYontem)
-        print(block1.addBlock(result2, girdiYontem))
-        block1.txtEkle()
-        print("Block başarıyla kaydedildi")
-    else:
-        print(block1.addBlock(result2, girdiYontem))
-        print("block kaydedilmedi")
-
-
+        print("Eksik veya hatali tusladınız.\n")
+block1 = blockchain()
 while True:
-    result = int(input(30 * "-" + "\n1)Turkce yazım kurallari kontrolu\n2)Sifreleme|\t"))
+
+    result = int(input(30 * "-" + "\n1)Turkce yazım kurallari kontrolu|\n2)Sifreleme|\n3)Help|\t"))
 
     if result == 1:
         turkçeYazımKurallari()
     elif result == 2:
-        sifreleme()
+        girdiYontem = int(input(30 * "-" + "\n1)sha256\n2)md5\n3)sha1\n4)sha512\n5)sha224\n6)Simetrik sifreleme:\t"))
+        sifreleme(girdiYontem)
+    elif result==3:
+        data2=myLib.help()
+        try:
+
+            helpSecim = int(input(" 1. Dil \n 2. Şifreleme yöntemleri \n 0. Çıkış"))
+
+            if helpSecim == 1:
+                data2.DilKontrol()
+            elif helpSecim == 2:
+
+                data2.Sifreleme()
+            elif klavye == 0:
+                break
+            else:
+                raise Exception
+                break
+        except Exception:
+            print("Muhtemelen Yanlış bir değer girdiniz. Tekrar yazınız.")
     else:
         print("Eksik veya Hatalı tuşladınız.\n" + "-" * 30)
+
