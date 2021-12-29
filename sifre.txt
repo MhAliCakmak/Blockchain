@@ -1,18 +1,1 @@
-	   |\/\/\/\/\/|	|/\/\/\/\/\|
-nonce:	36997
-data:	selam knk
-hash:	00e38637913f0c33060bcb9ea4b35080
-previous hash:	004ec973a680fbd396c1c4d31682adf9
-	   |\/\/\/\/\/|	|/\/\/\/\/\|
-	   |\/\/\/\/\/|	|/\/\/\/\/\|
-nonce:	3013
-data:	sesizce git sadece
-hash:	00abd8664d6aed1c31ab6a67d63e2de3
-previous hash:	00e38637913f0c33060bcb9ea4b35080
-	   |\/\/\/\/\/|	|/\/\/\/\/\|
-	   |\/\/\/\/\/|	|/\/\/\/\/\|
-nonce:	7559
-data:	ualime
-hash:	0078dd11b818be7f8ace9e87c219b5c9
-previous hash:	00abd8664d6aed1c31ab6a67d63e2de3
-	   |\/\/\/\/\/|	|/\/\/\/\/\|
+
