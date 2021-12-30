@@ -26,8 +26,7 @@ class dilKontrol:
         for kelime in cumleAyirma:
             if (sum(kelime.count(kalin) for kalin in kalinUnlu)) != 0 and ( sum(kelime.count(ince) for ince in inceUnlu)) != 0:
                 return f"{kelime} büyük unlu uyumuna uymaz"
-            else:
-                return f"{kelime} büyük unlu uyumuna uyar"
+            return f"{kelime} büyük unlu uyumuna uyar"
 
     def kucukUnluUyumu(self):
         unluler = list("aıoueiöüAIOUEİÖÜ")
