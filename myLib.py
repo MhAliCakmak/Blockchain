@@ -154,7 +154,8 @@ class help:
 
     def __init__(self):
         pass
-    def DilKontrol(self):
+    @staticmethod
+    def DilKontrol():
         while True:
             try:
                 print("Modüllerin içeriği:\n 1: Kelimeleri ayırma.")
@@ -187,7 +188,8 @@ class help:
             except BaskaDeger:
                 print("Yanlış bir değer girdiniz. Tekrar yazınız.")
 
-    def Sifreleme(self):
+    @staticmethod
+    def Sifreleme():
         print("Şifreleme Yöntemleri")
         print("Modüllerin içeriği:\n 1. Hash şifreleme yöntemleri \n 2. Sezar şifreleme")
         ayrinti=int(input("Ayrıntısını öğrenmek istediğiniz modülü giriniz: "))
